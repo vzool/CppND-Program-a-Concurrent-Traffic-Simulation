@@ -4,6 +4,7 @@
 #include <mutex>
 #include <deque>
 #include <condition_variable>
+#include <memory>
 #include "TrafficObject.h"
 
 // forward declarations to avoid include cycle
@@ -42,7 +43,7 @@ public:
     TrafficLight();
 
     // getters / setters
-    TrafficLightPhase getCurrentPhase();
+    TrafficLightPhase getCurrentPhase() const;
 
     // typical behaviour methods
     void waitForGreen();
@@ -59,6 +60,7 @@ private:
     std::condition_variable _condition;
     std::mutex _mutex;
     TrafficLightPhase _currentPhase;
+    MessageQueue<TrafficLightPhase> _messages;
 };
 
 #endif
